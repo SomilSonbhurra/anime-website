@@ -1,11 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
+import { useState, useEffect } from 'react';
+
+import Navbar from './components/Navbar/Navbar';
+import Home from './pages/Home/Home';
+import Manga from './pages/Manga/Manga'
+import AnimeDetail from './pages/AnimeDetail/AnimeDetail';
+import Footer from './components/Footer/Footer'
 
 function App() {
   return (
-  <div>
-      <h1>Hello from Somil's Anime Site!</h1>
-  </div>
+ <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/anime/:animeId" element={<AnimeDetail />} />
+        <Route path="/manga" element={<Manga />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 
