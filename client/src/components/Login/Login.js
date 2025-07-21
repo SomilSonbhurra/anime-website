@@ -16,6 +16,7 @@ export default function Login({ onClose, onLoginSuccess }) {
     const [showNaruto, setShowNaruto] = useState(false);
     const [position, setPosition] = useState(0); // Naruto's X position
     const inputRef = useRef(null);
+    const API_BASE = process.env.REACT_APP_API_BASE;
 
 
     const estimateX = (length) => {
@@ -25,7 +26,7 @@ export default function Login({ onClose, onLoginSuccess }) {
 
     const handleLogin = async () => {
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/login', {
+            const res = await axios.post(`${API_BASE}/api/auth/login`, {
                 email,
                 password,
                 username,
