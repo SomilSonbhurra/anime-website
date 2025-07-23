@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -63,7 +64,7 @@ const slidesData = [
 export default function Home() {
   const [activeCategory] = useState("All");
   const navigate = useNavigate();
-  const [user, setUser] = useState(() => {
+  const [user] = useState(() => {
     const saved = localStorage.getItem('user');
     return saved ? JSON.parse(saved) : null;
   });
@@ -80,15 +81,25 @@ export default function Home() {
   }, [user]);
 
   return (
-    <div className="home-wrapper">
-      <main className="home" style={{ position: 'relative', zIndex: 1 }}>
-        <div className="container-fluid">
-          {showWelcome && (
-            <h4 className="welcome-message">
-              Welcome, {user?.username}
-            </h4>
-          )}
+  <div className="home-wrapper">
+    <main className="home" style={{ position: 'relative', zIndex: 1 }}>
+      <div className="container-fluid">
+        {showWelcome && (
+          <motion.h4
+            className="welcome-message"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            Welcome, {user?.username}
+          </motion.h4>
+        )}
 
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+        >
           <Swiper
             modules={[Navigation, Pagination]}
             grabCursor={true}
@@ -98,23 +109,35 @@ export default function Home() {
             pagination={{ clickable: true }}
             navigation
             loop={true}
-            className= "home-swiper"
+            className="home-swiper"
           >
             {slidesData.map((slide, index) => (
               <SwiperSlide key={index}>
                 <div className="slide-container">
                   {/* Left - Image */}
-                  <div className="slide-image-wrapper" onClick={() => navigate(`/anime/${slide.animeId}`)} style={{ cursor: 'pointer' }}>
+                  <motion.div
+                    className="slide-image-wrapper"
+                    onClick={() => navigate(`/anime/${slide.animeId}`)}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <img
                       src={slide.imgSrc}
                       alt={slide.title}
                       className="slide-image"
                     />
                     <span className="slide-number">#{index + 1}</span>
-                  </div>
+                  </motion.div>
 
                   {/* Right - Content */}
-                  <div className="slide-content">
+                  <motion.div
+                    className="slide-content"
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
                     <h2>{slide.title}</h2>
                     <p>{slide.paragraph || "No description available."}</p>
 
@@ -132,16 +155,32 @@ export default function Home() {
                         Manga
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
-      </main>
+        </motion.div>
+      </div>
+    </main>
 
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
       <Trending />
-        <AnimeCategories />
-    </div>
-  );
+    </motion.div>
+
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      viewport={{ once: true }}
+    >
+      <AnimeCategories />
+    </motion.div>
+  </div>
+);
 }

@@ -37,6 +37,7 @@ export default function Navbar() {
 
     const buttonStyle = {
         padding: isMobile ? '6px 12px' : '8px 16px',
+        margin: isMobile ? '10px 0px' : '0px 0px',
         backgroundColor: '#ffdd95',
         color: 'black',
         border: 'none',
@@ -90,7 +91,7 @@ export default function Navbar() {
                                 <a className="nav-link-update active" aria-current="page" href="#">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link-update" href="#">About</a>
+                                <a className="nav-link-update" href="/about">About</a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link-update dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

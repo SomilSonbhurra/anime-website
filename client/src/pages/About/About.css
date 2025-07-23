@@ -1,0 +1,9 @@
+.banner-image {
+  width: 100vw;            /* Full screen width */
+  height: 1000px;           /* Fixed height */
+  object-fit: contain;     /* Show the full image (no crop) */
+  object-position: center; /* Center the image */
+  display: block;
+  margin: 0 auto;
+  image-rendering: auto;   /* Prevents blurriness */
+}

@@ -16,7 +16,7 @@ export default function Login({ onClose, onLoginSuccess }) {
     const [showNaruto, setShowNaruto] = useState(false);
     const [position, setPosition] = useState(0); // Naruto's X position
     const inputRef = useRef(null);
-    const API_BASE = process.env.REACT_APP_API_BASE;
+   const baseURL = process.env.REACT_APP_BACKEND_URL|| 'http://localhost:5000';
 
 
     const estimateX = (length) => {
@@ -24,23 +24,30 @@ export default function Login({ onClose, onLoginSuccess }) {
         return Math.min(length * 10, 260); // Cap at 260px
     };
 
-    const handleLogin = async () => {
-        try {
-            const res = await axios.post(`${API_BASE}/api/auth/login`, {
-                email,
-                password,
-                username,
-                age
-            });
+   const handleLogin = async () => {
+    try {
+        const res = await axios.post(`${baseURL}/api/auth/login`, {
+            email,
+            password,
+            username,
+            age
+        });
 
-            localStorage.setItem('user', JSON.stringify(res.data.user));
-            localStorage.setItem('token', res.data.token);
-            onLoginSuccess(res.data.user);
-            onClose();
-        } catch (err) {
-            setError(err.response?.data?.error || 'Login failed');
-        }
-    };
+        // Optional: Show a success message if needed
+        alert(res.data?.message || 'Login successful!');
+
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+        localStorage.setItem('token', res.data.token);
+        onLoginSuccess(res.data.user);
+        onClose();
+    } catch (err) {
+        console.error(err.response?.data);  // Debug actual error
+        const message = err.response?.data?.message || err.response?.data?.error || 'Login failed!';
+        alert(message);  // ✅ Show user-friendly error
+        setError(message); // Also set in your state if you use it somewhere else
+    }
+};
+
 
     return (
         <div style={overlayStyle}>
