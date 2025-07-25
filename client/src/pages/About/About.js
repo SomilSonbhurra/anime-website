@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './About.css';
+import { FaChevronDown } from 'react-icons/fa';
 
 export default function About() {
   const [openSection, setOpenSection] = useState(null);
@@ -105,9 +106,16 @@ export default function About() {
 // Reusable Dropdown Section Component
 function DropdownSection({ title, sectionKey, isOpen, toggle, textContent, imageClass }) {
   return (
-    <div className="dropdown-wrapper">
-      <button className="dropdown-toggle" onClick={() => toggle(sectionKey)}>
+    <div className="about-dropdown-wrapper">
+      <button className="about-dropdown-toggle" onClick={() => toggle(sectionKey)}>
         <span>{title}</span>
+        <motion.span
+          className="dropdown-arrow"
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <FaChevronDown />
+        </motion.span>
       </button>
 
       <AnimatePresence initial={false}>

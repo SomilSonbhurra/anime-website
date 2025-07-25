@@ -77,11 +77,11 @@
 }
 
 
-.dropdown-wrapper {
+.about-dropdown-wrapper {
   margin-bottom: 1rem;
 }
 
-.dropdown-toggle {
+.about-dropdown-toggle {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   color: #fff;
@@ -98,7 +98,7 @@
   transition: background 0.3s ease;
 }
 
-.dropdown-toggle:hover {
+.about-dropdown-toggle:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -170,4 +170,12 @@
     bottom: 70px;
     right: 10px;
   }
+}
+
+.dropdown-arrow {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+  font-size: 1rem;
 }
