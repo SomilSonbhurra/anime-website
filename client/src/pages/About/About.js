@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './About.css';
 import { FaChevronDown } from 'react-icons/fa';
+import FeedbackForm from '../../components/FeedbackForm/FeedbackForm';
 
 export default function About() {
   const [openSection, setOpenSection] = useState(null);
@@ -85,18 +86,27 @@ export default function About() {
         />
 
         <DropdownSection
-          title="📫 Contact & Feedback"
+          title="📫 Contact"
           sectionKey="contact"
           isOpen={openSection === 'contact'}
           toggle={toggleSection}
           textContent={
-            <ul>
-              <li>📧 <a href="mailto:animeverse.dev@gmail.com">animeverse.dev@gmail.com</a></li>
-              <li>💻 <a href="https://github.com/somil0707" target="_blank" rel="noreferrer">GitHub</a></li>
-              <li>🌐 <a href="https://anime-website-chi-wheat.vercel.app/" target="_blank" rel="noreferrer">AnimeVerse</a></li>
-            </ul>
+            <div>
+              📧 <a href="mailto:animeverse.dev@gmail.com">animeverse.dev@gmail.com</a><br />
+              💻 <a href="https://github.com/somil0707" target="_blank" rel="noreferrer">GitHub</a><br />
+              🌐 <a href="https://anime-website-chi-wheat.vercel.app/" target="_blank" rel="noreferrer">AnimeVerse</a>
+            </div>
           }
           imageClass="contact-image"
+        />
+
+        <DropdownSection
+          title="📝 Feedback"
+          sectionKey="feedback"
+          isOpen={openSection === 'feedback'}
+          toggle={toggleSection}
+          textContent={<FeedbackForm />}
+          imageClass="feedback-image"
         />
       </motion.div>
     </div>

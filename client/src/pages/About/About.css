@@ -134,15 +134,19 @@
 
 /* Images */
 .feature-image {
-  background-image: url('/public/img/obito.png');
+  background-image: url('/public/img/demonslayer.png');
 }
 
 .about-image {
-  background-image: url('/public/img/bleach.jpg');
+  background-image: url('/public/img/girl.png');
 }
 
 .contact-image {
-  background-image: url('/public/img/obito.png');
+  background-image: url('/public/img/haikyuu.png');
+}
+
+.feedback-image {
+   background-image: url('/public/img/legend.png');
 }
 
 
@@ -155,7 +159,7 @@
   .info-text,
   .info-image {
     flex: 1 1 100%;
-    min-height: 300px;
+    min-height: 150px;
     font-size: 1rem;
     text-align: center;
   }
@@ -165,10 +169,8 @@
   }
 
   .info-image {
-    min-height: 400px;
     position: relative;
-    bottom: 70px;
-    right: 10px;
+
   }
 }
 

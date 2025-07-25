@@ -45,7 +45,41 @@ const trendingData = [
     image: '/trendimg/jjk.jpg',
     type: 'Manga',
   },
-  // Add more as needed...
+    {
+    animeId: "naruto",
+    title: 'Naruto',
+    description: 'A young ninja seeks recognition and dreams of becoming the Hokage.',
+    image: '/trendimg/naruto.avif',
+    type: 'Manga',
+  },
+  {
+    animeId: "one-piece",
+    title: 'One Piece',
+    description: 'Young Pirate seeks One Piece treasure.',
+    image: '/trendimg/luffy.jpg',
+    type: 'Manga',
+  },
+  {
+    animeId: "bleach",
+    title: 'Bleach',
+    description: 'Ichigo becomes a Soul Reaper to protect the world.',
+    image: '/trendimg/ichigo.jpg',
+    type: 'Manga',
+  },
+  {
+    animeId: "aot",
+    title: 'Attack on Titan',
+    description: 'Humanity fights man-eating titans.',
+    image: '/trendimg/aot.jpg',
+    type: 'Manga',
+  },
+  {
+    animeId: "jjk",
+    title: 'Jujutsu Kaisen',
+    description: 'Yuji battles curses with Jujutsu sorcery.',
+    image: '/trendimg/jjk.jpg',
+    type: 'Manga',
+  },
 ];
 
 export default function TrendingSwiper() {
