@@ -10,7 +10,14 @@ import Manga from './pages/Manga/Manga'
 import AnimeDetail from './pages/AnimeDetail/AnimeDetail';
 import Footer from './components/Footer/Footer'
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 function App() {
+  useEffect(() => {
+  fetch(`${BACKEND_URL}/api/test`)
+    .then(res => res.json())
+    .then(data => console.log(data));
+}, []);
   return (
  <Router>
       <Navbar />
