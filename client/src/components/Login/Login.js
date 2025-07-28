@@ -16,7 +16,10 @@ export default function Login({ onClose, onLoginSuccess }) {
     const [showNaruto, setShowNaruto] = useState(false);
     const [position, setPosition] = useState(0); // Naruto's X position
     const inputRef = useRef(null);
-   const baseURL = process.env.REACT_APP_BACKEND_URL|| 'https://anime-backend-6igl.onrender.com';
+   const baseURL =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:5000'
+    : 'https://anime-backend-6igl.onrender.com';
 
 
     const estimateX = (length) => {
