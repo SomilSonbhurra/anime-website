@@ -58,3 +58,11 @@
   color: black;
   transform: translateY(-5px);
 }
+
+.episode-card.last-watched {
+  background-color: #ccffcc; /* a bit darker */
+  border: 2px solid #00c851;
+  font-weight: bold;
+  color: #1b1b1b; /* dark text so it's visible */
+}
+

@@ -8,7 +8,8 @@ import Home from './pages/Home/Home';
 import About from './pages/About/About'
 import Manga from './pages/Manga/Manga'
 import AnimeDetail from './pages/AnimeDetail/AnimeDetail';
-import Footer from './components/Footer/Footer'
+import Footer from './components/Footer/Footer';
+
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -24,7 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/anime/:animeId" element={<AnimeDetail />} />
+        <Route path="/anime/:animeId" element={<AnimeDetail />} />  
         <Route path="/manga" element={<Manga />} />
       </Routes>
       <Footer />

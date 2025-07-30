@@ -28,7 +28,7 @@ const slidesData = [
     paragraph: "A soul reaper's journey to protect and grow stronger."
   },
   {
-    animeId: "one-piece",
+    animeId: "onepiece",
     imgSrc: "/img/onepiece.avif",
     title: "One Piece",
     paragraph: "Luffy sets sail to find the greatest treasure, the One Piece."
