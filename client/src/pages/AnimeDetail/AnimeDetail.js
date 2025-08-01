@@ -4,15 +4,16 @@ import './AnimeDetail.css';
 import SuggestionBox from '../../components/SuggestionBox/SuggestionBox';
 
 // Helper function to generate episode links
-function generateEpisodeLinks(startId, endId) {
+function generateEpisodeLinks(startId, endId, startEpisode = 1) {
   const links = {};
-  let episodeNumber = 1;
+  let episodeNumber = startEpisode;
   for (let i = startId; i <= endId; i++) {
     links[episodeNumber] = i.toString();
     episodeNumber++;
   }
   return links;
 }
+
 
 // Anime data with multiple entries
 const animeData = {
@@ -26,21 +27,25 @@ const animeData = {
   },
   bleach: {
     title: "Bleach",
-    slug: "bleach-100",
+   slug: "bleach-806",
     description: "Ichigo becomes a Soul Reaper to protect the living and dead.",
     totalEpisodes: 366,
-    seasons: 5,
-    episodeLinks: generateEpisodeLinks(5001, 5366), // 366 episodes
+    seasons: 4, // ✅ 4 seasons
+    episodeLinks: generateEpisodeLinks(13793, 14158), // ✅ Correct ID range
   },
- onepiece: {
-  title: "One Piece",
-  slug: "one-piece-100", // ✅ Correct slug
-  description: "Luffy sails to find the ultimate treasure, the One Piece.",
-  totalEpisodes: 1100,
-  seasons: 20,
-  episodeLinks: generateEpisodeLinks(2142, 3241), // ✅ 1100 episodes from ep=2142 to ep=3241
-},
-
+  onepiece: {
+    title: "One Piece",
+    slug: "one-piece-100",
+    description: "Luffy sails to find the ultimate treasure, the One Piece.",
+    totalEpisodes: 1100,
+    seasons: 11, // ✅ Now exactly 11 seasons
+    episodeLinks: {
+      ...generateEpisodeLinks(2142, 3086), // Episodes 1-945 
+      ...generateEpisodeLinks(50557, 50711, 946), // Episodes 946–1100
+      ...generateEpisodeLinks(54244, 54391, 953),   // Episodes 953–1100 (148 episodes)
+      ...generateEpisodeLinks(50564, 54391, 953),   // Episodes 953–1100 (148 episodes)
+    },
+  },
 };
 
 export default function AnimeDetail() {
@@ -60,7 +65,14 @@ export default function AnimeDetail() {
   const episodesPerSeason = [];
   if (animeId === "naruto") {
     episodesPerSeason.push(100, 100, 20); // 3 seasons
+  } else if (animeId === "onepiece") {
+    for (let i = 0; i < 11; i++) {
+      episodesPerSeason.push(100); // 11 seasons of 100
+    }
+  } else if (animeId === "bleach") {
+    episodesPerSeason.push(100, 100, 100, 66); // 🟢 4 seasons as requested
   } else {
+    // fallback
     const eps = Math.floor(anime.totalEpisodes / anime.seasons);
     let remaining = anime.totalEpisodes;
     for (let i = 0; i < anime.seasons; i++) {
@@ -69,6 +81,7 @@ export default function AnimeDetail() {
       remaining -= current;
     }
   }
+
 
   const toggleSeason = (seasonIndex) => {
     setOpenSeason(openSeason === seasonIndex ? null : seasonIndex);
@@ -112,9 +125,8 @@ export default function AnimeDetail() {
                   return (
                     <div
                       key={episodeNumber}
-                      className={`episode-card ${
-                        lastWatched === episodeNumber ? 'last-watched' : ''
-                      }`}
+                      className={`episode-card ${lastWatched === episodeNumber ? 'last-watched' : ''
+                        }`}
                       onClick={() => {
                         if (epId) {
                           localStorage.setItem(
