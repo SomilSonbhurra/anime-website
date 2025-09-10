@@ -5,13 +5,24 @@ import { useNavigate } from 'react-router-dom';
 import Login from '../Login/Login'
 import { useMediaQuery } from 'react-responsive';
 import { Link } from "react-router-dom";
+import animeList from '../../data/animeList'; // adjust path if needed
+import { FaMicrophone } from 'react-icons/fa';
+
+
 
 export default function Navbar() {
     const [username, setUsername] = useState('');
     const [showLogin, setShowLogin] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [message, setMessage] = useState('');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
     const navigate = useNavigate();
+
 
     useEffect(() => {
         const userData = localStorage.getItem("user");
@@ -20,6 +31,55 @@ export default function Navbar() {
             setUsername(parsedUser.username); // adjust field name if needed
         }
     }, []);
+
+    useEffect(() => {
+        if (searchTerm.trim() === '') {
+            setSearchResults([]);
+            return;
+        }
+
+        const filtered = animeList.filter(anime =>
+            anime.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        setSearchResults(filtered);
+    }, [searchTerm]);
+
+    const handleVoiceSearch = () => {
+        if (!SpeechRecognition) {
+            alert("Speech Recognition not supported in this browser.");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.start();
+
+        recognition.onresult = (event) => {
+            const voiceInput = event.results[0][0].transcript;
+            setSearchTerm(voiceInput);
+
+            const found = animeList.find(anime =>
+                anime.title.toLowerCase().includes(voiceInput.toLowerCase())
+            );
+
+            if (found) {
+                navigate(`/anime/${found.id}`);
+            } else {
+                setMessage(`Anime "${voiceInput}" not found.`);
+                setTimeout(() => setMessage(''), 3000); // Clear after 3 sec
+            }
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Speech recognition error:", event.error);
+        };
+    };
+
+
 
     const handleLogout = () => {
         localStorage.removeItem("user");
@@ -106,11 +166,56 @@ export default function Navbar() {
                             </li>
                         </ul>
 
-                        <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <Link to="/search"> <button className="btn btn-outline-success" type="submit">Search</button></Link>
-                           
+                        <form className="d-flex position-relative" role="search" autoComplete="off" style={{ width: '300px' }}>
+                            <input
+                                className="form-control me-2"
+                                type="search"
+                                placeholder="Search anime..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onFocus={() => setShowDropdown(true)}
+                                onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+                            />
+
+                            {/* Microphone Icon */}
+                            <FaMicrophone
+                                onClick={handleVoiceSearch}
+                                style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    cursor: 'pointer',
+                                    color: '#888'
+                                }}
+                            />
+
+                            {showDropdown && searchResults.length > 0 && (
+                                <ul className="search-dropdown">
+                                    {searchResults.map((anime) => (
+                                        <li key={anime.id} className="search-result-item">
+                                            <Link to={`/anime/${anime.id}`} className="search-link">
+                                                <img src={anime.image} alt={anime.title} className="search-thumb" />
+                                                <div>
+                                                    <div className="search-title">{anime.title}</div>
+                                                    <div className="search-subtext">
+                                                        {anime.releaseDate} • {anime.type} • {anime.duration}
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+
+                            {message && (
+                                <div style={{ position: 'absolute', top: '105%', left: 0, background: '#ffcaca', padding: '8px', color: '#700', fontSize: '13px', borderRadius: '4px', zIndex: 1000 }}>
+                                    {message}
+                                </div>
+                            )}
                         </form>
+
+
 
                         <div className="d-flex align-items-center ms-3">
                             {username ? (

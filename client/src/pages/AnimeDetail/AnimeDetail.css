@@ -66,3 +66,36 @@
   color: #1b1b1b; /* dark text so it's visible */
 }
 
+.season-heading {
+  color: #F9D784;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+.season-boxes {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.season-box {
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.season-box:hover {
+  border-color: #ffd479;
+}
+
+.season-box.active {
+  border-color: #ffd479;
+  background: rgba(255, 212, 121, 0.12);
+}

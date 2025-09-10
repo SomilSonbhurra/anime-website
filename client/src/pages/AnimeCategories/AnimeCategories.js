@@ -14,14 +14,14 @@ const gridStyle = {
 const dummyData = {
   "Top Airing": [
     {
-      image: 'https://via.placeholder.com/60x85?text=One+Piece',
+      image: './img/onepiece.avif',
       title: 'One Piece',
       ep: 1135,
       views: 1122,
       type: 'TV'
     },
     {
-      image: 'https://via.placeholder.com/60x85?text=Sakamoto',
+      image: './img/naruto.jpg',
       title: 'Sakamoto Days',
       ep: 11,
       views: 11,
@@ -30,14 +30,14 @@ const dummyData = {
   ],
   "Most Popular": [
     {
-      image: 'https://via.placeholder.com/60x85?text=Naruto',
+      image: './img/naruto.jpg',
       title: 'Naruto: Shippuden',
       ep: 500,
       views: 500,
       type: 'TV'
     },
     {
-      image: 'https://via.placeholder.com/60x85?text=Bleach',
+      image: './img/bleach.jpg',
       title: 'Bleach',
       ep: 366,
       views: 366,
@@ -46,14 +46,14 @@ const dummyData = {
   ],
   "Most Favorite": [
     {
-      image: 'https://via.placeholder.com/60x85?text=JJK',
+      image: './img/jjk.avif',
       title: 'Jujutsu Kaisen',
       ep: 24,
       views: 24,
       type: 'TV'
     },
     {
-      image: 'https://via.placeholder.com/60x85?text=Chainsaw',
+      image: './img/chainsaw.jpg',
       title: 'Chainsaw Man',
       ep: 12,
       views: 12,
@@ -62,7 +62,7 @@ const dummyData = {
   ],
   "Latest Completed": [
     {
-      image: 'https://via.placeholder.com/60x85?text=Kaiju',
+      image: '',
       title: 'Kaiju No. 8 Movie',
       ep: 1,
       views: 1,

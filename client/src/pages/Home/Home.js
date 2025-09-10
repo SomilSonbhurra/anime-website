@@ -46,7 +46,7 @@ const slidesData = [
     paragraph: "A weak hunter becomes the strongest through mysterious powers."
   },
   {
-    animeId: "fire-force",
+    animeId: "fireforce",
     imgSrc: "/img/fireforce.jpg",
     title: "Fire Force",
     paragraph: "Special fire brigades fight infernal threats."

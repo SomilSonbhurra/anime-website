@@ -18,7 +18,7 @@ const trendingData = [
     type: 'Manga',
   },
   {
-    animeId: "one-piece",
+    animeId: "onepiece",
     title: 'One Piece',
     description: 'Young Pirate seeks One Piece treasure.',
     image: '/trendimg/luffy.jpg',
